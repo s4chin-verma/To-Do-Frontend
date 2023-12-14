@@ -25,7 +25,7 @@ export default function NavBar() {
                     <MDBNavbarBrand href="/todolist"><img style={{ height: '2rem' }} src={Todo} alt="logo" /></MDBNavbarBrand>
                     <MDBNavbarBrand href='/todolist' className='fw-bold'>To Do</MDBNavbarBrand>
                 </div>
-                {location.pathname === '/' ? (
+                {location.pathname === '/todolist' ? (
                     <Logout />
                 ) : (
                     <>

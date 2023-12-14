@@ -52,7 +52,7 @@ export default function TodoList() {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        navigate("/login");
+        navigate("/");
         return;
       }
 
@@ -154,9 +154,6 @@ export default function TodoList() {
                             value={taskText}
                             onChange={(e) => setTaskText(e.target.value)}
                           />
-                          <MDBTooltip tag="a" wrapperProps={{ href: "#!" }} title="Set due date">
-                            <MDBIcon fas icon="calendar-alt" size="lg" className="me-3" />
-                          </MDBTooltip>
                           <div>
                             <MDBBtn type="submit">Add</MDBBtn>
                           </div>

@@ -12,7 +12,7 @@ export default function Logout() {
     const navigate = useNavigate();
     const handleConfirm = () => {
         localStorage.clear();
-        navigate('/login');
+        navigate('/');
     };
 
     return (

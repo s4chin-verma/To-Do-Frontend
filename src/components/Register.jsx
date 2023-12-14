@@ -30,7 +30,7 @@ export default function Register() {
         });
         if (data.status === true) {
           localStorage.setItem("Todo-user", JSON.stringify(data.user));
-          navigate("/login");
+          navigate("/");
         }
       } catch (error) {
         console.log(error.response.data.msg);

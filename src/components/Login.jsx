@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
@@ -27,6 +27,14 @@ export default function Login() {
         password: ""
     });
 
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        if (token) {
+            navigate("/todolist");
+        }
+    }, [token]);
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (handleValidation()) {
@@ -36,11 +44,11 @@ export default function Login() {
                     username,
                     password,
                 });
-    
+
                 if (data.status === true) {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("Todo-user", JSON.stringify(data.user));
-                    navigate("/");
+                    navigate("/todolist");
                 }
             } catch (error) {
                 if (error.response && error.response.status === 401) {
@@ -51,7 +59,7 @@ export default function Login() {
             }
         }
     };
-    
+
     const toastOptions = {
         position: "bottom-right",
         autoClose: 8000,
