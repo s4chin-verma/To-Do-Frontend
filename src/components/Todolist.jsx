@@ -17,7 +17,7 @@ import {
   MDBTooltip,
 } from "mdb-react-ui-kit";
 
-export default function App() {
+export default function TodoList() {
   const navigate = useNavigate();
   const [taskText, setTaskText] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -51,6 +51,11 @@ export default function App() {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+        return;
+      }
+
       const response = await axios.get(getAllTasksRoute, {
         headers: {
           "x-auth-token": token,
@@ -59,11 +64,14 @@ export default function App() {
 
       if (response.data.status === true) {
         setTasks(response.data.tasks);
+      } else {
+        console.error("Error fetching tasks:", response.data.msg);
       }
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
   };
+
 
   const handleDeleteTask = async (taskId) => {
     try {

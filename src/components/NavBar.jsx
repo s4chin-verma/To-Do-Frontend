@@ -14,7 +14,7 @@ import {
 import { useLocation } from 'react-router-dom';
 import Logout from './Logout';
 
-export default function App() {
+export default function NavBar() {
     const [showNav, setShowNav] = useState(false);
     const location = useLocation();
 
@@ -25,7 +25,7 @@ export default function App() {
                     <MDBNavbarBrand href="/todolist"><img style={{ height: '2rem' }} src={Todo} alt="logo" /></MDBNavbarBrand>
                     <MDBNavbarBrand href='/todolist' className='fw-bold'>To Do</MDBNavbarBrand>
                 </div>
-                {location.pathname === '/todolist' ? (
+                {location.pathname === '/' ? (
                     <Logout />
                 ) : (
                     <>

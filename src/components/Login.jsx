@@ -40,7 +40,7 @@ export default function Login() {
                 if (data.status === true) {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("Todo-user", JSON.stringify(data.user));
-                    navigate("/todolist");
+                    navigate("/");
                 }
             } catch (error) {
                 if (error.response && error.response.status === 401) {

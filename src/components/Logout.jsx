@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import arrow from '../assets/arrow.png'
 import { useNavigate } from 'react-router-dom';
 
-export default function App() {
+export default function Logout() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -12,7 +12,7 @@ export default function App() {
     const navigate = useNavigate();
     const handleConfirm = () => {
         localStorage.clear();
-        navigate('/');
+        navigate('/login');
     };
 
     return (
