@@ -52,6 +52,7 @@ export default function TodoList() {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
+        console.log("i got triggered")
         navigate("/");
         return;
       }

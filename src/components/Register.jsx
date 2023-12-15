@@ -33,7 +33,6 @@ export default function Register() {
           navigate("/");
         }
       } catch (error) {
-        console.log(error.response.data.msg);
         toast.error(error.response.data.msg, toastOptions);
         console.error("Error sending data to the server:", error);
       }

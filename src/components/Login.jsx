@@ -35,6 +35,14 @@ export default function Login() {
     }, [token]);
 
 
+    const clearLocalStorageAfterInterval = (interval) => {
+        setTimeout(() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("Todo-user");
+            navigate("/")
+        }, interval);
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (handleValidation()) {
@@ -49,16 +57,15 @@ export default function Login() {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("Todo-user", JSON.stringify(data.user));
                     navigate("/todolist");
+                    clearLocalStorageAfterInterval(3600000);
                 }
             } catch (error) {
-                if (error.response && error.response.status === 401) {
-                    toast.error("User not found. Please check your username and password.", toastOptions);
-                } else {
-                    console.error("Error sending data to the server:", error);
-                }
+                toast.error(error.response.data.msg, toastOptions);
+                console.error("Error sending data to the server:", error);
             }
         }
     };
+
 
     const toastOptions = {
         position: "bottom-right",
