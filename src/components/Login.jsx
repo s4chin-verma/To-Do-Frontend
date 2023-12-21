@@ -36,10 +36,13 @@ export default function Login() {
 
 
     const clearLocalStorageAfterInterval = (interval) => {
+        console.log("Clearing local storage after interval...");
+
         setTimeout(() => {
+            console.log("Inside setTimeout, clearing local storage");
             localStorage.removeItem("token");
             localStorage.removeItem("Todo-user");
-            navigate("/")
+            navigate("/"); // Make sure navigate is implemented correctly
         }, interval);
     };
 
@@ -47,9 +50,14 @@ export default function Login() {
         event.preventDefault();
         if (handleValidation()) {
             const { username, password } = values;
+            setValues({
+                ...values,
+                username: username.trim(),
+            });
+
             try {
                 const { data } = await axios.post(loginRoute, {
-                    username,
+                    username: username.trim(),
                     password,
                 });
 
@@ -57,7 +65,7 @@ export default function Login() {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("Todo-user", JSON.stringify(data.user));
                     navigate("/todolist");
-                    clearLocalStorageAfterInterval(3600000);
+                    clearLocalStorageAfterInterval(10000);
                 }
             } catch (error) {
                 toast.error(error.response.data.msg, toastOptions);
@@ -65,6 +73,7 @@ export default function Login() {
             }
         }
     };
+
 
 
     const toastOptions = {
@@ -84,16 +93,23 @@ export default function Login() {
 
     const handleValidation = () => {
         const { username, password } = values;
-        if (username.trim() === "" || password.trim() === "") {
-            toast.error("Please enter a valid username and password", toastOptions);
+
+        if (username.trim().length === 0) {
+            toast.error("Please Enter username", toastOptions);
             return false;
         }
+
+        if (password.trim().length === 0) {
+            toast.error("Please Enter Password", toastOptions);
+            return false;
+        }
+
         return true;
     };
 
+
     const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value });
-
     };
 
     return (
