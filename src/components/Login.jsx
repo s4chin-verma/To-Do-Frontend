@@ -36,13 +36,14 @@ export default function Login() {
 
 
     const clearLocalStorageAfterInterval = (interval) => {
-        console.log("Clearing local storage after interval...");
+        console.log("Your token will be expire after 1 hour");
 
         setTimeout(() => {
+            alert("Your token had been expired please login again")
             console.log("Inside setTimeout, clearing local storage");
             localStorage.removeItem("token");
             localStorage.removeItem("Todo-user");
-            navigate("/"); // Make sure navigate is implemented correctly
+            navigate("/");
         }, interval);
     };
 
@@ -65,7 +66,7 @@ export default function Login() {
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("Todo-user", JSON.stringify(data.user));
                     navigate("/todolist");
-                    clearLocalStorageAfterInterval(10000);
+                    clearLocalStorageAfterInterval(3600000);
                 }
             } catch (error) {
                 toast.error(error.response.data.msg, toastOptions);
